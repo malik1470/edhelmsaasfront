@@ -1,0 +1,63 @@
+/* Margin on top of Staff Overview section */
+.staff-overview {
+  margin-top: 2rem;
+}
+
+/* Grid layout for Staff Overview cards */
+.staff-scroll {
+      margin-top: 25px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 32px;
+}
+
+/* Staff card styling */
+.staff-card {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Staff card image size */
+.staff-card img {
+  width: 40px;
+  height: 40px;
+}
+    .sidebar {
+      width: 200px;
+      position: fixed;
+      height: 100vh;
+      background: #343a40;
+      color: #fff;
+      padding-top: 1rem;
+    }
+    .sidebar a {
+      color: #fff;
+      padding: 10px 15px;
+      display: block;
+      text-decoration: none;
+    }
+    .sidebar a:hover {
+      background: #495057;
+    }
+    .main-content {
+      margin-left: 220px;
+      padding: 2rem;
+    }
+
+    /* Staff Cards horizontal scroll */
+    .staff-scroll {
+      overflow-x: auto;
+      white-space: nowrap;
+      padding-bottom: 10px;
+    }
+    .staff-card {
+      display: inline-block;
+      width: 150px;
+      margin-right: 10px;
+    }
+    .staff-card img {
+      width: 40px;
+      height: 40px;
+      margin-right: 10px;
+    }
