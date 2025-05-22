@@ -461,29 +461,42 @@ document.addEventListener("DOMContentLoaded", function () {
     const counters = document.querySelectorAll('.stat-content h3');
     
     counters.forEach(counter => {
-      const target = parseInt(counter.textContent.replace(/[^\d]/g, ''));
-      if (target) {
-        animateCounter(counter, target);
+      const originalText = counter.textContent;
+      // Skip animation for complex formats like fractions
+      if (originalText.includes('/')) {
+        return; // Don't animate fraction formats
+      }
+      
+      const target = parseInt(originalText.replace(/[^\d]/g, ''));
+      if (target && target < 10000) { // Only animate reasonable numbers
+        animateCounter(counter, target, originalText);
       }
     });
   }
 
-  function animateCounter(element, target) {
+  function animateCounter(element, target, originalFormat) {
     let current = 0;
-    const increment = target / 100;
+    const increment = target / 50; // Reduced steps for smoother animation
     const timer = setInterval(() => {
       current += increment;
       if (current >= target) {
         current = target;
         clearInterval(timer);
+        // Restore original format when complete
+        element.textContent = originalFormat;
+        return;
       }
       
-      // Preserve original format
-      const originalText = element.textContent;
+      // Preserve original format structure
       const numericPart = Math.floor(current);
-      const newText = originalText.replace(/\d+/, numericPart);
-      element.textContent = newText;
-    }, 20);
+      if (originalFormat.includes('$')) {
+        element.textContent = '$' + numericPart.toLocaleString();
+      } else if (originalFormat.includes('%')) {
+        element.textContent = numericPart + '%';
+      } else {
+        element.textContent = numericPart.toString();
+      }
+    }, 30);
   }
 
   // Mobile menu toggle
@@ -591,20 +604,10 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function updateDashboardStats() {
-    const statCards = document.querySelectorAll('.stat-card .stat-content h3');
-    
-    statCards.forEach(stat => {
-      const currentValue = parseInt(stat.textContent.replace(/[^\d]/g, ''));
-      if (currentValue) {
-        // Simulate small random changes
-        const change = Math.floor(Math.random() * 3) - 1; // -1, 0, or 1
-        const newValue = Math.max(0, currentValue + change);
-        
-        const originalText = stat.textContent;
-        const newText = originalText.replace(/\d+/, newValue);
-        stat.textContent = newText;
-      }
-    });
+    // Disable automatic stat updates to prevent unwanted changes
+    // This was causing the numbers to keep increasing
+    console.log('Stats update disabled to prevent number inflation');
+    return;
   }
 
   // Initialize form validation
