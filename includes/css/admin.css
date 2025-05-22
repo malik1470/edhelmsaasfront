@@ -681,3 +681,70 @@ body {
 .notification.info {
   border-left: 4px solid #3498db;
 }
+.sort-icon::before {
+  content: "\f0dc"; /* fa-sort */
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  margin-left: 5px;
+}
+
+th.sorting_asc .sort-icon::before {
+  content: "\f0de"; /* fa-sort-up */
+}
+
+th.sorting_desc .sort-icon::before {
+  content: "\f0dd"; /* fa-sort-down */
+}
+
+
+/* Add New Student Button */
+.add-student-btn {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 50px; /* enough for icon + some padding */
+  padding: 10px 15px;
+  background-color: #007bff;
+  border: none;
+  border-radius: 6px;
+  color: white;
+  font-weight: 600;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  cursor: pointer;
+  overflow: hidden;
+  white-space: nowrap;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+  transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.3s ease;
+  gap: 12px;
+}
+
+.add-student-btn i {
+  font-size: 18px;
+  flex-shrink: 0;
+  transition: transform 0.3s ease;
+}
+
+.add-student-btn .btn-text {
+  opacity: 0;
+  transform: translateX(-15px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  pointer-events: none;
+  font-size: 16px;
+  user-select: none;
+}
+
+.add-student-btn:hover {
+  width: 180px;
+   background-color: #007bff;
+  box-shadow: 0 6px 12px rgba(60, 154, 255, 0.5);
+}
+
+.add-student-btn:hover .btn-text {
+  opacity: 1;
+  transform: translateX(0);
+  pointer-events: auto;
+}
+
+.add-student-btn:hover i {
+  transform: rotate(90deg);
+}
