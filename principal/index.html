@@ -1,1 +1,213 @@
-How are you doing?
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Principal Dashboard</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+  <!-- FullCalendar CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.css" rel="stylesheet" />
+
+  <!-- Custom CSS -->
+  <style>
+    .sidebar {
+      width: 220px;
+      height: 100vh;
+      position: fixed;
+      top: 0;
+      left: 0;
+      background-color: #f8f9fa;
+      padding-top: 20px;
+    }
+    .sidebar a {
+      display: block;
+      padding: 10px 20px;
+      color: #333;
+      text-decoration: none;
+    }
+    .sidebar a:hover {
+      background-color: #ddd;
+    }
+    .main-content {
+      margin-left: 240px;
+      padding: 20px;
+    }
+    .staff-scroll {
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+    .staff-card {
+      min-width: 200px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      margin-right: 15px;
+    }
+    canvas#financeChart {
+        height:420px !important;
+    }
+  </style>
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <h4 class="text-center py-3">SMART SCHOOL</h4>
+    <a href="#">Dashboard</a>
+    <a href="#">Departments</a>
+    <a href="#">Teachers</a>
+    <a href="#">Students</a>
+    <a href="#">Attendance</a>
+    <a href="#">Exams</a>
+    <a href="#">Finance</a>
+    <a href="#">Reports</a>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <div class="dashboard-header mb-4">
+      <h2 class="text-primary">Principal Dashboard</h2>
+      <p class="text-muted">Comprehensive view of school performance</p>
+    </div>
+
+    <!-- Quick Stats -->
+    <div class="row g-3 mb-4">
+      <div class="col-md-3">
+        <div class="card text-center p-3">
+          <h6 class="text-muted">Total Students</h6>
+          <h3>560</h3>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card text-center p-3">
+          <h6 class="text-muted">Total Teachers</h6>
+          <h3>45</h3>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card text-center p-3">
+          <h6 class="text-muted">This Month Fees</h6>
+          <h3>$83,050</h3>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card text-center p-3">
+          <h6 class="text-muted">Expenses</h6>
+          <h3>$19,200</h3>
+        </div>
+      </div>
+    </div>
+
+    <!-- Charts Section -->
+    <div class="row g-4 mb-5">
+      <div class="col-md-6">
+        <div class="staff-scroll">
+          <div class="card p-4">
+            <h5>Enrollment Trends</h5>
+            <canvas id="enrollmentChart" height="200"></canvas>
+
+            <!-- Department Summary Integrated -->
+            <hr />
+            <h6 class="mt-4">Department Summary</h6>
+            <div class="staff-scroll d-flex mt-3">
+              <div class="card p-3 staff-card d-inline-flex align-items-center">
+                <img src="https://cdn-icons-png.flaticon.com/128/2942/2942130.png" alt="Science" width="40" height="40" />
+                <div class="ms-3">
+                  <strong>Science</strong><br />12 Teachers
+                </div>
+              </div>
+              <div class="card p-3 staff-card d-inline-flex align-items-center">
+                <img src="https://cdn-icons-png.flaticon.com/128/201/201623.png" alt="Math" width="40" height="40" />
+                <div class="ms-3">
+                  <strong>Math</strong><br />9 Teachers
+                </div>
+              </div>
+              <div class="card p-3 staff-card d-inline-flex align-items-center">
+                <img src="https://cdn-icons-png.flaticon.com/128/3595/3595455.png" alt="Arts" width="40" height="40" />
+                <div class="ms-3">
+                  <strong>Arts</strong><br />7 Teachers
+                </div>
+              </div>
+            </div>
+            <!-- End Department Summary -->
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card p-4">
+          <h5>Income vs Expense</h5>
+          <canvas id="financeChart" height="200"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <!-- Event Calendar -->
+    <div class="card p-4 mb-5">
+      <h5>School Calendar</h5>
+      <div id="calendar1"></div>
+    </div>
+
+    <!-- Notices / Messages -->
+    <div class="card p-4 mb-5">
+      <h5>Messages / Notices</h5>
+      <ul>
+        <li>Director's Inspection scheduled for 15th June</li>
+        <li>Midterm Exam review on 28th May</li>
+        <li>Staff meeting every Monday 8:00 AM</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- FullCalendar JS -->
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
+
+  <!-- Charts JS -->
+  <script>
+    // Enrollment Trend Chart
+    new Chart(document.getElementById("enrollmentChart"), {
+      type: 'line',
+      data: {
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
+        datasets: [{
+          label: 'New Enrollments',
+          data: [30, 45, 40, 60, 55],
+          borderColor: '#007bff',
+          fill: false,
+          tension: 0.3
+        }]
+      }
+    });
+
+    // Finance Chart
+    new Chart(document.getElementById("financeChart"), {
+      type: 'doughnut',
+      data: {
+        labels: ['Income', 'Expenses'],
+        datasets: [{
+          label: 'Finance',
+          data: [83050, 19200],
+          backgroundColor: ['#28a745', '#dc3545']
+        }]
+      }
+    });
+
+    // FullCalendar Initialization
+    document.addEventListener('DOMContentLoaded', function () {
+      const calendarEl = document.getElementById('calendar1');
+      const calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'dayGridMonth',
+        height: 400
+      });
+      calendar.render();
+    });
+  </script>
+</body>
+</html>
